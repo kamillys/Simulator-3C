@@ -1,0 +1,12 @@
+#pragma once
+
+#include <VBGL/core/Core>
+
+#include "Camera.h"
+#include "GLRenderer.h"
+#include "Mesh.h"
+#include "Material.h"
+#include "Object3D.h"
+#include "OrthographicCamera.h"
+#include "PerspectiveCamera.h"
+#include "Scene.h"
