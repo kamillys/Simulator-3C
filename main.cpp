@@ -10,6 +10,7 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     try {
+        qsrand(0);
         QFile f("Paths/t1.k16");
         f.open(QFile::ReadOnly);
         CNCCommandList list = CNCParser::parse(f);

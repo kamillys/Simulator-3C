@@ -41,6 +41,11 @@ void Geometry::name##Set(const std::vector<type>& vec) \
     _##name = vec; \
     _##name##NeedsUpdate = true; \
 } \
+void Geometry::name##Clear() \
+{ \
+    _##name.clear(); \
+    _##name##NeedsUpdate = true; \
+} \
 std::vector<type>& Geometry::name##GetVector() \
 { \
     _##name##NeedsUpdate = true; \

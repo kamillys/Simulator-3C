@@ -2,6 +2,8 @@
 
 #include <GL/glew.h>
 #include <GL/gl.h>
+#undef __GLEW_H__
+#include <QGLWidget>
 #include <iostream>
 #include <VTF/Exception>
 

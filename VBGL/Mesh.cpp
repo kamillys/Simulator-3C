@@ -25,7 +25,9 @@ void VBGL::Mesh::draw(VBGL::Camera *cam, VBGL::Material *_material)
         _material = this->_material;
     _geometry->updateBuffers();
     glm::mat4 Proj = cam->projectionMatrix();
-    glm::mat4 View = glm::scale(glm::mat4(), glm::vec3(-1,1,1))
+    //Proj[2][3] = 1;
+    //std::cerr << Proj << "\n#####################\n\n";
+    glm::mat4 View = glm::scale(glm::mat4(), glm::vec3(1,1,1))
             * glm::translate(glm::mat4(), glm::vec3(0,0,-2))
             * cam->matrixWorld();
     glm::mat4 Model = matrixWorld();

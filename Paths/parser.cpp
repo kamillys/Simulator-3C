@@ -6,23 +6,58 @@
 CNCCommandList CNCParser::parse(QIODevice &file)
 {
     CNCCommandList commands;
+    glm::dvec3 boundMinBox;
+    glm::dvec3 boundMaxBox;
     while(!file.atEnd()) {
         QString line = file.readLine();
         line.remove("\n");
         if (line.isNull() || line.isEmpty() || line.length() == 0)
             continue;
-        size_t offset = 0;
+        int offset = 0;
         glm::dvec3 lastPosition;
 
-        QRegularExpression InstructionNumberRE("N\\d+");
-        QRegularExpression GCodeRE("[A-Za-z]\\d+");
-        QRegularExpression PositionRE;
+        QRegExp InstructionNumberRE("N\\d+");
+        QRegExp GCodeRE("G\\d+");//("[A-Za-z]\\d+");
+        QRegExp PositionRE;
+        int pos = 0;
         {
             QString number ("(-?\\d+\\.\\d\\d\\d)");
             PositionRE.setPattern("X"+number+"Y"+number+"Z"+number);
         }
 
-        QRegularExpressionMatch result = InstructionNumberRE.match(line, offset);
+        if(offset != (pos=InstructionNumberRE.indexIn(line, offset)))
+        {
+            qWarning() << "Cannot find instruction number";
+            continue;
+        }
+        offset += InstructionNumberRE.matchedLength();
+        //qDebug() << pos << InstructionNumberRE.matchedLength() << InstructionNumberRE.cap();
+        if(offset != (pos=GCodeRE.indexIn(line, offset)))
+        {
+            qWarning() << "Not G-Code?";
+            continue;
+        }
+        offset += GCodeRE.matchedLength();
+        //qDebug() << pos << GCodeRE.matchedLength() << GCodeRE.cap();
+        if (GCodeRE.cap() == "G01") //Move instruction
+        {
+            if(offset != (pos=PositionRE.indexIn(line, offset)))
+            {
+                qWarning() << "Bad position for " << line;
+                continue;
+            }
+            //Valid position data. Try to extract
+
+            lastPosition.x = PositionRE.cap(1).toDouble();
+            lastPosition.y = PositionRE.cap(2).toDouble();
+            lastPosition.z = PositionRE.cap(3).toDouble();
+            boundMaxBox = glm::max(boundMaxBox, lastPosition);
+            boundMinBox = glm::min(boundMinBox, lastPosition);
+            commands.push_back(CNCCommand(CNCType::Move, lastPosition, line.toStdString()));
+        }
+
+//Qt5 Code. Because fucking awesome.
+        /*QRegularExpressionMatch result = InstructionNumberRE.match(line, offset);
         if (!result.hasMatch()) {
             qWarning() << "Invalid instruction number";
         } else {
@@ -52,7 +87,7 @@ CNCCommandList CNCParser::parse(QIODevice &file)
                 qDebug() << "INumber:" << result.captured();
                 qDebug() << line;
             }
-        }
+        }*/
     }
     return commands;
 }

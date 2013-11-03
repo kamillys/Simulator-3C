@@ -4,13 +4,14 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui opengl
 
 greaterThan(QT_MAJOR_VERSION, 4): {
-  QT += widgets opengl
+  QT += widgets
   CONFIG += C++11
+} else {
+  QMAKE_CXXFLAGS += -std=c++0x
 }
-
 
 TARGET = Simulator3C
 TEMPLATE = app
@@ -41,7 +42,13 @@ SOURCES += main.cpp\
     model.cpp \
     Paths/parser.cpp \
     Paths/commands.cpp \
-    originaxismodel.cpp
+    originaxismodel.cpp \
+    pathsmodel.cpp \
+    cuttersettingsform.cpp \
+    materialsettingsform.cpp \
+    cuttermodel.cpp \
+    cutterlogic.cpp \
+    animationsettingsform.cpp
 
 HEADERS  += mainwindow.h \
     widget.h \
@@ -79,9 +86,18 @@ HEADERS  += mainwindow.h \
     model.h \
     Paths/commands.h \
     Paths/parser.h \
-    originaxismodel.h
+    originaxismodel.h \
+    pathsmodel.h \
+    cuttersettingsform.h \
+    materialsettingsform.h \
+    cuttermodel.h \
+    cutterlogic.h \
+    animationsettingsform.h
 
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    cuttersettingsform.ui \
+    materialsettingsform.ui \
+    animationsettingsform.ui
 
 LIBS += -lGLEW -lGLU

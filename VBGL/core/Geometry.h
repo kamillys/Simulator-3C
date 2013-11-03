@@ -15,7 +15,9 @@
     X(glm::vec2, UVs) \
     X(glm::vec4, colors) \
     X(glm::vec3, tangents) \
-    X(glm::vec3, bitangents)
+    X(glm::vec3, bitangents) \
+    X(int, vertexProblems) \
+    X(float, heightValues)
 
 
 #define GEOMETRY_VECTORED_DATA \
@@ -58,6 +60,7 @@ public:
     void name##Append(const type& vec); \
     void name##Set(int i, const type& vec); \
     void name##Set(const std::vector<type>& vec); \
+    void name##Clear(); \
     std::vector<type>& name##GetVector(); \
     void name##Bind(); \
     void name##Release();

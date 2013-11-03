@@ -11,13 +11,48 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Simulator</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QHBoxLayout" name="horizontalLayout">
-    <property name="margin">
-     <number>0</number>
-    </property>
+   <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,1">
+    <item>
+     <widget class="QToolBox" name="toolBox">
+      <property name="currentIndex">
+       <number>2</number>
+      </property>
+      <widget class="MaterialSettingsForm" name="materialSettingsWidget">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>72</width>
+         <height>363</height>
+        </rect>
+       </property>
+       <attribute name="label">
+        <string>Material</string>
+       </attribute>
+      </widget>
+      <widget class="CutterSettingsForm" name="cutterSettingsWidget">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>72</width>
+         <height>363</height>
+        </rect>
+       </property>
+       <attribute name="label">
+        <string>Cutter</string>
+       </attribute>
+      </widget>
+      <widget class="AnimationSettingsForm" name="animationSettingsForm">
+       <attribute name="label">
+        <string>Animation</string>
+       </attribute>
+      </widget>
+     </widget>
+    </item>
     <item>
      <widget class="RenderWidget" name="renderWidget" native="true"/>
     </item>
@@ -44,7 +79,9 @@
   </widget>
   <action name="actionLoad_file">
    <property name="icon">
-    <iconset theme="document-open"/>
+    <iconset theme="document-open">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>Load file</string>
@@ -63,6 +100,24 @@
    <class>RenderWidget</class>
    <extends>QWidget</extends>
    <header>renderwidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>CutterSettingsForm</class>
+   <extends>QWidget</extends>
+   <header>cuttersettingsform.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>MaterialSettingsForm</class>
+   <extends>QWidget</extends>
+   <header>materialsettingsform.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>AnimationSettingsForm</class>
+   <extends>QWidget</extends>
+   <header>animationsettingsform.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

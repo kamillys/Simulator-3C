@@ -7,12 +7,12 @@ using namespace VBGL;
 void GLStateManager::setDefaultGLState()
 {
     glClearColor(0, 0, 0, 1);
-    //glClearDepth(1);
-    glClearDepth(-1);
+    glClearDepth(1);
+    //glClearDepth(-1);
 
     glEnable(GL_DEPTH_TEST);
-    //glDepthFunc(GL_LEQUAL);
-    glDepthFunc(GL_GEQUAL);
+    glDepthFunc(GL_LEQUAL);
+    //glDepthFunc(GL_GEQUAL);
 
     glFrontFace(GL_CCW);
     glCullFace(GL_BACK);
